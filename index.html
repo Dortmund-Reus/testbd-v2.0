@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设备添加与文件烧写</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/tagsinput.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div>
+        <fieldset id = select_device>
+            <legend>选择设备</legend>
+            <form action="#">
+                <label for="device-show">您选择的是：
+                    <input type="text" value="" id="device-show">
+                </label>
+                <br/>
+
+                <!--省份选择-->
+                <select id="site" onchange="showBoard(this)">
+                    <option>Sites</option>
+
+                </select>
+
+                <!--城市选择-->
+                <select id="board" onchange="showNodes(this)">
+                    <option>Architecures</option>
+                </select>
+
+                <!--县区选择-->
+                <select id="device_id" onchange="selectNodes(this)">
+                    <option>Nodes</option>
+                </select>
+                <button type="button" class="btn add" onClick="showDevice()">添加设备</button>
+            </form>
+        </fieldset>
+    </div>
+
+    <div>
+        <fieldset id = "device_list">
+            <legend>已选择的设备列表</legend>
+            <label for="nodes-show">选择设备节点：
+                <!-- <input type="text" id="device-show"> -->
+                <div class = "box">
+                    <div class="tagsinput-primary form-group">
+                        <!-- <input name="tagsinput" id="tagsinputval" class="tagsinput" data-role="tagsinput" value="faltui,这是一个标签" placeholder="输入后回车"/> -->
+                        <input data-role="tagsinput" id = "nodes-show"/>
+                        
+                        <!-- <button type="button" class="btn" id="enqueue">添加到烧写队列</button>
+                        <button type="button" class="btn" id="clear">清空烧写队列</button> -->
+                        <!-- <button type="button" class="btn" id="add_firmware">添加firmware</button>
+                        <button type="button" class="btn" id="delete_device">删除所选设备</button>
+                        <button type="button" class="btn" id="reset">重新选择</button> -->
+                    </div>
+                </div>          
+            </label>
+            <label for="nodes-show">选择firmware：
+                <!-- <input type="text" id="device-show"> -->
+                <div class = "box">
+                    <div class="tagsinput-primary form-group">
+                        <!-- <input name="tagsinput" id="tagsinputval" class="tagsinput" data-role="tagsinput" value="faltui,这是一个标签" placeholder="输入后回车"/> -->
+                        <input data-role="tagsinput" id = "files-show"/>
+                        
+                        <!-- <button type="button" class="btn" id="enqueue">添加到烧写队列</button>
+                        <button type="button" class="btn" id="clear">清空烧写队列</button> -->
+                        <button type="button" class="btn" id="add_firmware">添加firmware</button>
+                        <button type="button" class="btn" id="delete_device">删除所选设备</button>
+                        <button type="button" class="btn" id="reset">重新选择设备</button>
+                    </div>
+                </div>          
+            </label>
+
+            <table>
+                <!-- here goes our data! -->
+            </table>
+        </fieldset>
+    </div>
+
+    <div>
+        <fieldset id = "upload_list">
+            <legend>已上传的文件列表</legend>
+            <!-- <label for="addr-show02">选择设备节点：
+                <input type="text" id="addr-show02">
+                <button type="button" class="btn confirm">确定</button>
+            </label>
+            <br> -->
+            <label for="file-show">您要上传的是：
+                <input type="text" id="file-show">
+                <button type="button" class="btn" id = "upload">上传文件</button>
+                <button type="button" class="btn add" id = "add_confirm">确认添加</button>
+            </label>
+        </fieldset>
+    </div>
+
+    <div>
+        <button class="btn" id = "submit" onClick="sendBurnRequest()">确认提交</button>
+    </div>
+    <!-- <div class="box"> -->
+        <!-- <div class="tagsinput-primary form-group"> -->
+            <!-- <input data-role="tagsinput" id = "xixi"/>
+            <button class="btn" onClick="getinput()">获取输入的值</button>
+        </div>
+    </div> -->
+
+    <!-- <script type="text/javascript">
+    function getinput(){
+        alert($('#tagsinputval').val());
+    }
+    </script> -->
+
+
+<script src="js/device.js"></script>
+<script src="js/main.js"></script>
+<script src="js/sendHttp.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/build_table.js"></script>
+
+<!-- <script src="device.js"></script> -->
+</body>
+</html>
