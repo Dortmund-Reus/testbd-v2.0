@@ -1,17 +1,25 @@
-//发送登陆请求————未测试
+let token = "";
+//map
+
+//发送登陆请求————已测试
 function sendLoginRequest(){
+    payload =  {
+      "id":"UserTest",
+      "password":"6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
+    };
     $.ajax({
         url: "http://localhost:8082/user/login",
         method: 'POST',
         dataType: 'json',
-        data: {
-            "id":"UserTest",
-            "password":"6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
-        },
+        data: JSON.stringify(payload),
         processData: false,
         headers: { "Content-Type": "application/json" },
         success: function (data) {
           alert(JSON.stringify(data));
+          token = data.data.token;
+          //console.log(data.data.token);
+          //这里的token是string类型的
+          console.log(token);
         },
         error: function(data, status){
           alert(status);
@@ -31,7 +39,7 @@ function sendBurnRequest(){
         url: "http://localhost:8080/api/device/burn",
         method: 'POST',
         headers: {
-            "Authorization": "d554ebd9824bfd7a0a915c79d0551264b9222638f84302a2e80462546e139862"
+            "Authorization": token
         },
         //contentType: 'application/json',
         dataType: 'json',
@@ -57,13 +65,13 @@ function sendBurnRequest(){
     });
 };
 
-//显示系统支持的设备种类————未测试
+//显示系统支持的设备种类————已测试
 function sendShowBoradRequest() {
     $.ajax({
-        url: "http://localhost:8080/api/device/type",
+        url: "http://localhost:8080/api/board/list",
         method: 'GET',
         headers: {
-            "Authorization": "d554ebd9824bfd7a0a915c79d0551264b9222638f84302a2e80462546e139862"
+            "Authorization": token
         },
         //contentType: 'application/json',
         dataType: 'json',
@@ -77,13 +85,16 @@ function sendShowBoradRequest() {
     });
 };
 
-//显示设备列表————未测试
+let url_str = 'http://localhost:8080/api/device/list\?boardname=ESP32DevKitC';
+//console.log(str);
+
+//显示设备列表————已测试
 function sendShowDevicesRequest() {
     $.ajax({
-        url: 'http://localhost:8080/api/device/list\\?boardname=\"ESP32DevKitC\"',
+        url: url_str,
         method: 'GET',
         headers: {
-            "Authorization": "d554ebd9824bfd7a0a915c79d0551264b9222638f84302a2e80462546e139862"
+            "Authorization": token
         },
         //contentType: 'application/json',
         dataType: 'json',
@@ -97,5 +108,3 @@ function sendShowDevicesRequest() {
     });
 }
 
-// let str = 'http://localhost:8080/api/device/list\\?boardname=\"ESP32DevKitC\"';
-// console.log(str);
