@@ -3,7 +3,9 @@ $("#login-button").on("click", function(event){
   //  $('form').fadeOut(500);
    
 //console.log("66666");
-    sendLoginRequest();
+   // sendLoginRequest();
+   // sendShowDevicesRequest();
+    //alert(user_token);
     window.open("index.html", "_self");
 	// $('.wrapper').addClass('form-success');
 });

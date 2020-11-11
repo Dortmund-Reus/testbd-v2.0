@@ -1,14 +1,15 @@
-let token = "";
+let user_token = "";
 //map
 
 //发送登陆请求————已测试
 function sendLoginRequest(){
-    payload =  {
+    let payload =  {
       "id":"UserTest",
       "password":"6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
     };
     $.ajax({
         url: "http://localhost:8082/user/login",
+        async: false,
         method: 'POST',
         dataType: 'json',
         data: JSON.stringify(payload),
@@ -16,10 +17,10 @@ function sendLoginRequest(){
         headers: { "Content-Type": "application/json" },
         success: function (data) {
           alert(JSON.stringify(data));
-          token = data.data.token;
+          user_token = data.data.token;
           //console.log(data.data.token);
           //这里的token是string类型的
-          console.log(token);
+          console.log(user_token);
         },
         error: function(data, status){
           alert(status);
@@ -39,7 +40,7 @@ function sendBurnRequest(){
         url: "http://localhost:8080/api/device/burn",
         method: 'POST',
         headers: {
-            "Authorization": token
+            "Authorization": user_token
         },
         //contentType: 'application/json',
         dataType: 'json',
@@ -59,25 +60,34 @@ function sendBurnRequest(){
           alert(JSON.stringify(data));
         },
         error: function(data, status){
-          // alert(status);
-          alert("successfully entered the waiting queue!");
+          alert(status);
+          //alert("successfully entered the waiting queue!");
         }
     });
 };
 
+let boardNames = [];
 //显示系统支持的设备种类————已测试
 function sendShowBoradRequest() {
     $.ajax({
         url: "http://localhost:8080/api/board/list",
+        async: false,
         method: 'GET',
         headers: {
-            "Authorization": token
+            "Authorization": user_token
         },
         //contentType: 'application/json',
         dataType: 'json',
         processData: false,
         success: function (data) {
-          alert(JSON.stringify(data));
+          let device_types = data.data.boards;
+        //  alert(JSON.stringify(data));
+       //   console.log(device_types);
+          for(let i = 0; i < device_types.length; i++)
+          {
+            boardNames.push(device_types[i].boardname);
+          }
+          //alert(data.data.devices);
         },
         error: function(data, status){
           alert(status);
@@ -85,26 +95,31 @@ function sendShowBoradRequest() {
     });
 };
 
-let url_str = 'http://localhost:8080/api/device/list\?boardname=ESP32DevKitC';
+let url_str = 'http://localhost:8080/api/device/list\?boardname=all';
 //console.log(str);
 
+//记录收到的设备json数组
+let devices_json;
 //显示设备列表————已测试
 function sendShowDevicesRequest() {
     $.ajax({
         url: url_str,
+        async: false,
         method: 'GET',
         headers: {
-            "Authorization": token
+            "Authorization": user_token
         },
         //contentType: 'application/json',
         dataType: 'json',
         processData: false,
         success: function (data) {
-          alert(JSON.stringify(data));
+          devices_json = data;
+          alert(JSON.stringify(devices_json));
         },
         error: function(data, status){
           alert(status);
         }
     });
 }
+//sendShowDevicesRequest();
 

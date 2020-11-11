@@ -12,7 +12,6 @@ let add_dev_btn = document.getElementsByClassName('add')[0];
 let site = document.getElementById('site');
 let board = document.getElementById('board');
 let device_id = document.getElementById('device_id');
-let devices_obj;//这个是发送请求返回的json对象
 
 /*用于保存当前所选的各个状态*/
 let current = {
@@ -47,10 +46,10 @@ function showBoard(obj) {
 
     if (val != null) {
         board.length = 1;
-        let len = boardname.length;
+        let len = boardNames.length;
         for (let i = 0; i < len; i++) {
             let boardOpt = document.createElement('option');
-            boardOpt.innerText = boardname[i];
+            boardOpt.innerText = boardNames[i];
             boardOpt.value = i;
             board.appendChild(boardOpt);
         }
@@ -66,16 +65,16 @@ function showBoardAll() {
     //     add_dev_btn.disabled = true;
     // }
    // add_dev_btn.disabled = true;
-    let len = boardname.length;
+    let len = boardNames.length;
     for (let i = 0; i < len; i++) {
         let boardOpt = document.createElement('option');
-        boardOpt.innerText = boardname[i];
+        boardOpt.innerText = boardNames[i];
         boardOpt.value = i;
         board.appendChild(boardOpt);
     }
 };
 
-showBoardAll();
+
 
 //实时记录选中的设备序号
 // let selected_device = "";
@@ -83,60 +82,19 @@ let order;
 
 /*根据所选的板子来显示设备列表*/
 function showNodes(obj) {
-    let val = obj.options[obj.selectedIndex].value;
-    if (val != current.boardname) {
-        current.boardname = val;
+    let val = obj.options[obj.selectedIndex].innerText;
+    //console.log(val);
+    if (val != current.board) {
+        current.board = val;
         deviceShow.value = '';
         add_dev_btn.disabled = true;
     }
     
+    url_str = 'http://localhost:8080/api/device/list\?boardname=' + val;
+    sendShowDevicesRequest();
     //下面是我们返回的json对象
-    devices_obj = {
-        "code": 0,
-        "msg": "success",
-        "data": {
-            "devices": [
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.1",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.2",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.3",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.4",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.5",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.6",
-                    "busy": false,
-                    "clientid": "xxxxxfd"
-                }
-            ]
-        }
-    };
     //获取到的所有设备
-    let devices_list = devices_obj.data.devices;
+    let devices_list = devices_json.data.devices;
     if (val != null) {
         device_id.length = 1; //清空之前的内容只留第一个默认选项
         let length = devices_list.length;
@@ -154,57 +112,17 @@ function showNodes(obj) {
     }
 }
 
+sendLoginRequest();
+//sendShowDevicesRequest();
 //显示所有的设备节点
 //如果没有选择板子类型，应当显示所有的设备
 function showNodesAll()
 {
+    url_str = 'http://localhost:8080/api/device/list\?boardname=all';
+    sendShowDevicesRequest();
     //下面是我们返回的json对象
-    devices_obj = {
-        "code": 0,
-        "msg": "success",
-        "data": {
-            "devices": [
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.1",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.2",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.3",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.4",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.5",
-                    "busy": true,
-                    "clientid": "xxxxxx"
-                },
-                {
-                    "boardname": "ESP32DevKitC",
-                    "deviceid": "ESP32DevKitC-1.1.2.6",
-                    "busy": false,
-                    "clientid": "xxxxxfd"
-                }
-            ]
-        }
-    };
     //获取到的所有设备
-    let devices_list = devices_obj.data.devices;
+    let devices_list = devices_json.data.devices;
     let length = devices_list.length;
     //console.log(length);
     if(length == 0){
@@ -218,8 +136,10 @@ function showNodesAll()
         device_id.appendChild(device_idOpt);
     }
 };
+//获取boardname
+sendShowBoradRequest();
+showBoardAll();
 showNodesAll();
-
 
 /*选择节点之后的处理函数*/
 function selectNodes(obj) {
@@ -236,15 +156,15 @@ let mySet = new Set();//记录当前的设备id
 //并将其添加到设备列表中去
 function showDevice() {
     deviceShow.value = current.device_id; 
-    new_device_boardName = devices_obj.data.devices[order].boardname;
-    new_device_id = devices_obj.data.devices[order].deviceid;
-    if(devices_obj.data.devices[order].busy)
+    new_device_boardName = devices_json.data.devices[order].boardname;
+    new_device_id = devices_json.data.devices[order].deviceid;
+    if(devices_json.data.devices[order].busy)
     {
         new_device_status = "busy";
     } else {
         new_device_status = "idle";
     }
-    new_device_clientId = devices_obj.data.devices[order].clientid;
+    new_device_clientId = devices_json.data.devices[order].clientid;
     //如果表是空的，我们应当从头建表
     if(mySet.size == 0){
         //let new_device =  devices_obj.data.devices[order];
@@ -266,6 +186,5 @@ function showDevice() {
         insertNewRow(new_device_boardName,  new_device_id, new_device_status, new_device_clientId, "");
         mySet.add(new_device_id);
     }
-    
     // addrShow.value = province[current.prov].name + '-' + province[current.prov]["city"][current.city].name + '-' + province[current.prov]["city"][current.city].districtAndCounty[current.country];
 }
