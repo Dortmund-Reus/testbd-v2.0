@@ -7,19 +7,20 @@ confirm_button.disabled = true;
 
 //上传文件
 function easyUpload(){
-    var input = document.createElement("input");
-    input.type = "file";
-    input.click();
-    input.onchange = function(){
-      var file = input.files[0];
-      var form = new FormData();
-      form.append("file", file); //第一个参数是后台读取的请求key值
-      form.append("fileName", file.name);
-      form.append("other", "666666"); //实际业务的其他请求参数
-      fileShow.value = file.name;
+    sendUploadRequest();  
+    // var input = document.createElement("input");
+    // input.type = "file";
+    // input.click();
+    // input.onchange = function(){
+    //   var file = input.files[0];
+    //   var form = new FormData();
+    //  form.append("file", file); //第一个参数是后台读取的请求key值
+    //  form.append("fileName", file.name);
+    //  form.append("other", "666666"); //实际业务的其他请求参数
+   // fileShow.value = file.name;
       //console.log(file.size);
-      var xhr = new XMLHttpRequest();
-      var action = "http://localhost:8080/upload.do"; //上传服务的接口地址
+     // var xhr = new XMLHttpRequest();
+      //var action = "http://localhost:8080/upload.do"; //上传服务的接口地址
       // xhr.open("POST", action);
       // xhr.send(form); //发送表单数据
       // xhr.onreadystatechange = function(){
@@ -29,7 +30,7 @@ function easyUpload(){
       //   }
       // }
       confirm_button.disabled = false;
-    }
+    // }
   };
 
 //删除文件操作
@@ -67,11 +68,13 @@ function update_file_box(e) {
 
 // 确认添加文件
 function addNewFile(){
+  filename = fileShow.value;
+ // sendUploadRequest();
   let new_file_object = document.createElement('div');
   let new_file_name = document.createElement('span');
   let delete_button = document.createElement('button');
   let add_file_button = document.createElement('button');
-  console.log(fileShow.value);
+  //console.log(fileShow.value);
   new_file_name.innerHTML = fileShow.value;
   new_file_object.setAttribute("class", "file");
   delete_button.setAttribute("class", "btn delete");

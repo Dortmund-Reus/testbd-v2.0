@@ -72,9 +72,14 @@ function showBoardAll() {
         boardOpt.value = i;
         board.appendChild(boardOpt);
     }
+
+    for (let i = 0; i < len; i++) {
+        let boardOpt = document.createElement('option');
+        boardOpt.innerText = boardNames[i];
+        boardOpt.value = i;
+        $("#board-select")[0].appendChild(boardOpt);
+    }
 };
-
-
 
 //实时记录选中的设备序号
 // let selected_device = "";

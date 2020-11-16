@@ -17,18 +17,18 @@
                 </label>
                 <br/>
 
-                <!--省份选择-->
+                <!--城市选择-->
                 <select id="site" onchange="showBoard(this)">
                     <option>Sites</option>
 
                 </select>
 
-                <!--城市选择-->
+                <!--板子选择-->
                 <select id="board" onchange="showNodes(this)">
                     <option>Architecures</option>
                 </select>
 
-                <!--县区选择-->
+                <!--节点选择-->
                 <select id="device_id" onchange="selectNodes(this)">
                     <option>Nodes</option>
                 </select>
@@ -85,6 +85,12 @@
                 <button type="button" class="btn confirm">确定</button>
             </label>
             <br> -->
+            <label for="board-select">选择设备架构类型：
+                <select id="board-select">
+                    <option>Architecures</option>
+                </select>
+            </label>
+            </br>
             <label for="file-show">您要上传的是：
                 <input type="text" id="file-show">
                 <button type="button" class="btn" id = "upload">上传文件</button>
