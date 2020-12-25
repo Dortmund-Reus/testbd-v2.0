@@ -8,7 +8,7 @@ function sendLoginRequest(){
       "password":"6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918"
     };
     $.ajax({
-        url: "http://localhost:8082/user/login",
+        url: "http://kubernetes.tinylink.cn/linklab/device-control-v2/login-authentication/user/login",
         async: false,
         method: 'POST',
         dataType: 'json',
@@ -62,7 +62,7 @@ function sendUploadRequest() {
       //let obj = {form1, form2};
       //为每一个设备进行一次文件的上传
       $.ajax({
-        url: "http://localhost:8083/api/file",
+        url: "http://kubernetes.tinylink.cn/linklab/device-control-v2/file-cache/api/file",
       //  async: false,
         method: 'POST',
         headers: {
@@ -86,7 +86,7 @@ function sendUploadRequest() {
   }
 };
 
-//发送烧写任务提交请求————未测试
+//发送烧写任务提交请求————已测试
 function sendBurnRequest(){
 
     let tasks = [];
@@ -118,7 +118,7 @@ function sendBurnRequest(){
     let burn_obj = {};//最后要发送的是burn_obj的json字符串
     burn_obj.tasks = tasks;
     $.ajax({
-        url: "http://localhost:8080/api/device/burn",
+        url: "http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/device/burn",
         method: 'POST',
         headers: {
             "Authorization": user_token
@@ -141,7 +141,7 @@ let boardNames = [];
 //显示系统支持的设备种类————已测试
 function sendShowBoradRequest() {
     $.ajax({
-        url: "http://localhost:8080/api/board/list",
+        url: "http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/board/list",
         async: false,
         method: 'GET',
         headers: {
@@ -166,7 +166,7 @@ function sendShowBoradRequest() {
     });
 };
 
-let url_str = 'http://localhost:8080/api/device/list\?boardname=all';
+let url_str = 'http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/device/list\?boardname=all';
 //console.log(str);
 
 //记录收到的设备json数组
@@ -193,4 +193,47 @@ function sendShowDevicesRequest() {
     });
 }
 //sendShowDevicesRequest();
+let ws_url = "ws://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/ws";
 
+// function sendWebSocketRequest() {
+//   $.ajax({
+//       url: "http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/ws",
+//       async: false,
+//       method: 'GET',
+//       headers: {
+//           "Authorization": user_token
+//       },
+//       //contentType: 'application/json',
+//       dataType: 'json',
+//       processData: false,
+//       success: function (data) {
+//         devices_json = data;
+//         alert(JSON.stringify(devices_json));
+//       },
+//       error: function(data, status){
+//         alert(status);
+//       }
+//   });
+// }
+
+function sendWebSocketRequest() {
+  let ws = new WebSocket(ws_url, user_token);
+  ws.onopen=function(evt){
+    ws.send(user_token);
+  };
+  ws.onmessage = function(evt) {
+    console.log( "Received Message: " + evt.data);
+    //ws.close();
+  };
+}
+
+// var ws = new WebSocket(ws_url + user_token);
+
+// ws.onopen=function(evt){
+//   ws.send(user_token);
+// };
+
+// ws.onmessage = function(evt) {
+//   console.log( "Received Message: " + evt.data);
+//   //ws.close();
+// };

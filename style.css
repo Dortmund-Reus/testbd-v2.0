@@ -3,32 +3,61 @@
     margin: 0;
     padding: 0;
 }
+.top{
+    margin: 20px 0px;
+    text-align: center;
+}
+.box_container{
+    margin: 30px;
+    border-radius: 10px;
+    border: 1px solid #1ABC9C;
+    box-shadow: 0px 0px 2px #1ABC9C;
+    display: flex;
+    flex-direction: column;
+}
+.box_item{
+    margin-left: 10%;
+}
+.box_item_top{
+    padding: 10px 0px 20px 0px;
+    text-align: left;
+}
 
+.box_item_main{
+    margin-left:20%;
+}
+
+.line-20{
+    margin-top: 10px;
+}
 fieldset {
-    width: 500px;
+    width: 200px;
     padding: 20px;
     margin: 30px;
     border: 1px solid #ccc;
 }
-
+ 
 fieldset#select_device{
-    width: 600px;    
+    width: 80%;    
 }
 
 fieldset#device_list {
-    width: 1000px;
+    width: 80%;
 }
-
 
 fieldset#upload_list {
-    width: 600px;
-}
+    width: 80%;
+} 
 
-legend{
-    font-size: 18px;
-    font-weight: bold;
+.box_item2_main_item{
+    display: flex;
 }
-
+.box_item2_main_item_title{
+    text-align: right;
+    width: 30%;
+    position: relative;
+    top: 5px;
+}
 #addr-show, #addr-show02,#addr-show03{
     width: 200px;
     height: 25px;
@@ -49,7 +78,10 @@ legend{
     border-radius: 5px;
     /* margin-top: 10px; */
 }
-
+.btn_front{
+    position: relative;
+    top:-3px !important;
+}
 .btn#submit{
     width: 120px;
     height: 50px;
@@ -68,8 +100,6 @@ select {
 #device_id {
     width: 180px;
 }
-
-
 
 /*表格样式部分*/
 
@@ -165,7 +195,7 @@ caption {
 
 /*这里是获取标签的部分*/
 *{margin: 0;padding: 0;list-style-type: none;text-decoration: none;}
-.box{width: 550px;margin: auto;}
+.box{width: 60%;margin: auto;}
 .bootstrap-tagsinput {
   background-color: white;
   border: 2px solid #ebedef;
@@ -238,7 +268,6 @@ caption {
             filter: none;
   }
 }
-
 
 .bootstrap-tagsinput input[type="text"] {
   font-size: 14px;

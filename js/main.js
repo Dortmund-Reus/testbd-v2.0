@@ -1,6 +1,3 @@
-//****************针对第一种方式的具体js实现部分******************//
-//****************所使用的数据是city.js******************//
-
 /*根据id获取对象*/
 // function $(str) {
 //     return document.getElementById(str);
@@ -95,7 +92,7 @@ function showNodes(obj) {
         add_dev_btn.disabled = true;
     }
     
-    url_str = 'http://localhost:8080/api/device/list\?boardname=' + val;
+    url_str = 'http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/device/list\?boardname=' + val;
     sendShowDevicesRequest();
     //下面是我们返回的json对象
     //获取到的所有设备
@@ -118,12 +115,20 @@ function showNodes(obj) {
 }
 
 sendLoginRequest();
+//console.log(user_token);
+
+//建立websocket链接
+
+//var ws = new WebSocket("ws://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/ws");
+
+sendWebSocketRequest();
+
 //sendShowDevicesRequest();
 //显示所有的设备节点
 //如果没有选择板子类型，应当显示所有的设备
 function showNodesAll()
 {
-    url_str = 'http://localhost:8080/api/device/list\?boardname=all';
+    url_str = 'http://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/device/list\?boardname=all';
     sendShowDevicesRequest();
     //下面是我们返回的json对象
     //获取到的所有设备
