@@ -49,6 +49,10 @@ fieldset#upload_list {
     width: 80%;
 } 
 
+fieldset#compile {
+    width: 80%;
+} 
+
 .box_item2_main_item{
     display: flex;
 }

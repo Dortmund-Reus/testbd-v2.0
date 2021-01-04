@@ -121,7 +121,7 @@
                         </div>
                     </label>
                     <div class="line-20"></div>
-                    <div style="margin-left:20%"> <button type="button" class="btn" id="upload">
+                    <div style="margin-left:20%"> <button type="button" class="btn" id="upload_burn">
                             <div class="btn_front">上传文件</div>
                         </button>
                         <button type="button" class="btn add" id="add_confirm">
@@ -130,10 +130,52 @@
                 </div>
             </fieldset>
         </div>
-        <div style="margin:0 auto">
-            <button class="btn" style="height:40px;width:100px" id="submit" onClick="sendBurnRequest()"><div class="btn_front">确认提交</div></button>
+        <!-- tinysim的编译 -->
+        <div class="box_item">
+            <fieldset id="compile">
+                <h3 class="box_item_top"> Tinysim源码编译</h3>
+                <div >
+                    <label for="board-select">
+                        <div class="box_item2_main_item">
+                            <div class="box_item2_main_item_title">设备架构类型:</div>
+                            <select id="board-select">
+                                <option>Architecures</option>
+                            </select>
+                        </div>
+                    </label>
+                    </br>
+                    <label for="file-show">
+                        <div class="box_item2_main_item">
+                            <div class="box_item2_main_item_title">您要上传的是:</div>
+                            <input type="text" id="tinysim-file-show">
+                        </div>
+                    </label>
+                    <div class="line-20"></div>
+                    <div style="margin-left:20%"> 
+                        <button type="button" class="btn" id="upload_compile">
+                            <div class="btn_front">上传文件</div>
+                        </button>
+                        <button type="button" class="btn" id="compile_btn">
+                            <div class="btn_front">开始编译</div>
+                        </button>
+                        <button type="button" class="btn" id="download_btn">
+                            <div class="btn_front">下载文件</div>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
         </div>
+        <div style="margin:0 auto">
+            <div style="margin:0 auto">
+                <button class="btn" style="height:40px;width:100px" id="submit" onClick="sendBurnRequest()"><div class="btn_front">确认提交</div></button>
+            </div>
+            <div style="margin:0 auto">
+                <button class="btn" style="height:40px;width:100px" id="submit" onClick="sendBurnRequest()"><div class="btn_front">查看日志</div></button>
+            </div>
+        </div>
+        
     </div>
+    <script src="js/sha1.js"></script>
     <script src="js/sendHttp.js"></script>
     <script src="js/device.js"></script>
     <script src="js/main.js"></script>

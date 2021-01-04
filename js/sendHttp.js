@@ -237,3 +237,6 @@ function sendWebSocketRequest() {
 //   console.log( "Received Message: " + evt.data);
 //   //ws.close();
 // };
+
+
+//let val = obj.options[obj.selectedIndex].innerText;
