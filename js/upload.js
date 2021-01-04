@@ -190,19 +190,22 @@ function sendShowDevicesRequest() {
 }
 
 //下载文件到本地
-function downloadFile(){
-  let download_url_str = 'http://kubernetes.tinylink.cn/linklab/compilev2/api/compile/nonblock/byboardhash\\\?filehash\\\="'
+function downloadZip(){
+
+  //http://kubernetes.tinylink.cn/linklab/compilev2/api/compile/block\?filehash\=
+  let download_url_str = 'http://kubernetes.tinylink.cn/linklab/compilev2/api/compile/nonblock\?filehash\='
                        + sha1_txt 
-                       + '"\\\&boardtype\\\="linuxhost"'
-                       + '\\\&compiletype\\\="tinysim"';
+                       + '\&boardtype\=linuxhost'
+                       + '\&compiletype\=tinysim';
   console.log(download_url_str);
+  downloadFile(download_url_str, "", "TinySimObj.zip");
   $.ajax({
     url: download_url_str,
-    async: true,
+    //async: true,
     method: 'GET',
-    dataType: 'json',
-    processData: false,
-    contentType: false,
+  //  dataType: 'binary',
+  //  processData: false,
+  //  contentType: false,
     success: function (data) {
       alert(JSON.stringify(data));
     },
@@ -216,7 +219,7 @@ upload_burn_button.addEventListener("click", easyUpload);
 upload_compile_button.addEventListener("click", uploadToCompile);
 confirm_button.addEventListener("click", addNewFile);
 compile_button.addEventListener("click", compileFile);
-download_button.addEventListener("click", downloadFile);
+download_button.addEventListener("click", downloadZip);
 
 // confirm_button.on('click', function() {
 //   $(this).text("文字改变了");
