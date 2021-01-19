@@ -115,7 +115,7 @@ function uploadToCompile(){
           return (e<16?"0":"")+e.toString(16);
         }).join("");
         //document.body.insertAdjacentHTML("beforeend","<p>"+hex+"</p>");
-        alert(hex);
+      //  alert(hex);
         sha1_txt = hex;
         console.log(sha1_txt);
     };//end of onload function
@@ -155,7 +155,7 @@ function compileFile(){
     processData: false,
     contentType: false,
     success: function (data) {
-      alert(JSON.stringify(data));
+     // alert(JSON.stringify(data));
       //let filehash = data.data.filehash;
     //   filemap[file.name] = data.data.filehash;
   //    console.log(filemap[file.name]);
@@ -181,7 +181,7 @@ function sendShowDevicesRequest() {
       processData: false,
       success: function (data) {
         devices_json = data;
-        alert(JSON.stringify(devices_json));
+     //   alert(JSON.stringify(devices_json));
       },
       error: function(data, status){
         alert(status);
@@ -207,7 +207,7 @@ function downloadZip(){
   //  processData: false,
   //  contentType: false,
     success: function (data) {
-      alert(JSON.stringify(data));
+    //  alert(JSON.stringify(data));
     },
     error: function(data, status){
       alert(status);

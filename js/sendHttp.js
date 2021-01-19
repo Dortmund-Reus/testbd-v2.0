@@ -16,7 +16,7 @@ function sendLoginRequest(){
         processData: false,
         headers: { "Content-Type": "application/json" },
         success: function (data) {
-          alert(JSON.stringify(data));
+      //    alert(JSON.stringify(data));
           user_token = data.data.token;
           //console.log(data.data.token);
           //这里的token是string类型的
@@ -74,7 +74,7 @@ function sendUploadRequest() {
         processData: false,
         contentType: false,
         success: function (data) {
-          alert(JSON.stringify(data));
+       //   alert(JSON.stringify(data));
           //let filehash = data.data.filehash;
           filemap[file.name] = data.data.filehash;
           console.log(filemap[file.name]);
@@ -185,7 +185,7 @@ function sendShowDevicesRequest() {
         processData: false,
         success: function (data) {
           devices_json = data;
-          alert(JSON.stringify(devices_json));
+       //   alert(JSON.stringify(devices_json));
         },
         error: function(data, status){
           alert(status);
