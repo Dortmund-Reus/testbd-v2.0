@@ -99,6 +99,8 @@ function addNewFile(){
 
 let sha1_txt = "";
 let file_to_compile;
+
+//上传源码zip文件进行编译
 function uploadToCompile(){
     var input = document.createElement("input");
     input.type = "file";
@@ -141,10 +143,6 @@ function compileFile(){
   form.append("type", "application/json");
   form.append("file", file_to_compile); //第一个参数是后台读取的请求key值
   form.append("type", "application/octet-stream"); //实际业务的其他请求参数
-// console.log(form.get("type"));
-
-  //let obj = {form1, form2};
-  //为每一个设备进行一次文件的上传
   $.ajax({
     url: "http://kubernetes.tinylink.cn/linklab/compilev2/api/compile",
   //  async: false,
@@ -155,7 +153,8 @@ function compileFile(){
     processData: false,
     contentType: false,
     success: function (data) {
-     // alert(JSON.stringify(data));
+      alert(JSON.stringify(data));
+      //alert(data);
       //let filehash = data.data.filehash;
     //   filemap[file.name] = data.data.filehash;
   //    console.log(filemap[file.name]);
@@ -198,16 +197,17 @@ function downloadZip(){
                        + '\&boardtype\=linuxhost'
                        + '\&compiletype\=tinysim';
   console.log(download_url_str);
-  downloadFile(download_url_str, "", "TinySimObj.zip");
+  submitFile(download_url_str, "", "TinySimObj.zip");
   $.ajax({
     url: download_url_str,
     //async: true,
     method: 'GET',
-  //  dataType: 'binary',
-  //  processData: false,
-  //  contentType: false,
+   // dataType: 'binary',
+    processData: false,
+    contentType: false,
     success: function (data) {
-    //  alert(JSON.stringify(data));
+      //alert(JSON.stringify(data));
+      //alert(data);
     },
     error: function(data, status){
       alert(status);

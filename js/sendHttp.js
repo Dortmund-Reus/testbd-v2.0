@@ -29,7 +29,7 @@ function sendLoginRequest(){
 };
 
 let filemap = {};//用于存储文件名和hash值的对应关系
-//发送烧写文件上传请求————未完成
+//发送烧写文件上传请求——已完成
 function sendUploadRequest() {
     var input = document.createElement("input");
     input.type = "file";
