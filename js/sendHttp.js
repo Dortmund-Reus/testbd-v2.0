@@ -86,6 +86,13 @@ function sendUploadRequest() {
   }
 };
 
+//查看日志请求
+function viewLogs(){
+  let log_url = "logs.html?" + user_token;
+  window.open(log_url, "_blank");
+  
+}
+
 //发送烧写任务提交请求————已测试
 function sendBurnRequest(){
 
@@ -194,6 +201,7 @@ function sendShowDevicesRequest() {
 }
 //sendShowDevicesRequest();
 let ws_url = "ws://kubernetes.tinylink.cn/linklab/device-control-v2/user-service/api/ws";
+
 
 // function sendWebSocketRequest() {
 //   $.ajax({

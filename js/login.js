@@ -7,5 +7,6 @@ $("#login-button").on("click", function(event){
    // sendShowDevicesRequest();
     //alert(user_token);
     window.open("index.html", "_self");
+  //  window.location.href("index.html");
 	// $('.wrapper').addClass('form-success');
 });
